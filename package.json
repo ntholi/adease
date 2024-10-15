@@ -8,10 +8,12 @@
   ],
   "main": "./dist/adease.umd.cjs",
   "module": "./dist/adease.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/adease.js",
-      "require": "./dist/adease.umd.cjs"
+      "require": "./dist/adease.umd.cjs",
+      "types": "./dist/index.d.ts"
     }
   },
   "scripts": {
@@ -22,7 +24,8 @@
   },
   "dependencies": {
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "vite-plugin-dts": "^4.2.4"
   },
   "devDependencies": {
     "@eslint/js": "^9.11.1",
