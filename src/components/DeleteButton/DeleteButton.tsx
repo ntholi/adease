@@ -14,12 +14,14 @@ export interface DeleteButtonProps extends ActionIconProps {
   action: (id: string | number) => Promise<void>;
   id: number | string;
   message?: string;
+  onSuccess?: () => void;
 }
 
 export function DeleteButton({
   action,
   id,
   message,
+  onSuccess,
   ...props
 }: DeleteButtonProps) {
   const [loading, setLoading] = useState(false);
@@ -42,6 +44,7 @@ export function DeleteButton({
     setLoading(true);
     try {
       await action(id);
+      onSuccess?.();
     } catch (error) {
       console.error(error);
       notifications.show({
