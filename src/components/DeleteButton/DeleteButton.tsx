@@ -6,6 +6,7 @@ import {
   Text,
 } from '@mantine/core';
 import { modals, ModalsProvider } from '@mantine/modals';
+import { Notifications, notifications } from '@mantine/notifications';
 import { TrashIcon } from 'lucide-react';
 import { useState } from 'react';
 
@@ -43,12 +44,18 @@ export function DeleteButton({
       await action(id);
     } catch (error) {
       console.error(error);
+      notifications.show({
+        title: 'Error',
+        message: 'An error occurred while deleting',
+        color: 'red',
+      });
     } finally {
       setLoading(false);
     }
   }
   return (
     <MantineProvider>
+      <Notifications />
       <ModalsProvider>
         <ActionIcon
           color='red'
