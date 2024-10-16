@@ -1,10 +1,10 @@
 import { Box, BoxProps, Divider, MantineProvider, Text } from '@mantine/core';
 import React from 'react';
 
-export type FieldViewProps = {
+export interface FieldViewProps extends BoxProps {
   label: string;
   children?: React.ReactNode;
-} & BoxProps;
+}
 
 export function FieldView({ label, children, ...props }: FieldViewProps) {
   return (
