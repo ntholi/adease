@@ -1,1 +1,1 @@
-export { default } from './FieldView';
+export { FieldView, type FieldViewProps } from './FieldView';

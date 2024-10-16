@@ -1,12 +1,13 @@
+import '@mantine/core/styles.css';
 import { Box, BoxProps, Divider, MantineProvider, Text } from '@mantine/core';
 import React from 'react';
 
-type Props = {
+export type FieldViewProps = {
   label: string;
   children: React.ReactNode;
 } & BoxProps;
 
-export default function FieldView({ label, children, ...props }: Props) {
+export function FieldView({ label, children, ...props }: FieldViewProps) {
   return (
     <MantineProvider>
       <Box {...props}>
