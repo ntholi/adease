@@ -1,5 +1,4 @@
 import '@mantine/core/styles.css';
-import '@mantine/notifications/styles.css';
 
 export { FieldView, type FieldViewProps } from './components/FieldView';
 export {
