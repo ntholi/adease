@@ -1,50 +1,25 @@
-# React + TypeScript + Vite
+# Adease: Effortless Admin Interface Creation
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Adease is a React library designed to simplify the process of creating admin interfaces. Built with TypeScript and Vite, Adease provides developers with a set of customizable components and tools to rapidly build user-friendly admin panels.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Easy-to-use Components**: A collection of pre-built, customizable React components tailored for admin interfaces.
+- **TypeScript Support**: Full TypeScript integration for improved developer experience and type safety.
+- **Vite-powered**: Utilizes Vite for fast development and optimized builds.
+- **Customizable**: Flexible theming and styling options to match your brand.
+- **Responsive Design**: Mobile-friendly components that work across devices.
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+To start using Adease in your project, install it via npm:
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+npm install adease
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Or if you're using yarn:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```bash
+yarn add adease
 ```
