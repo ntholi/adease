@@ -9,3 +9,4 @@ export {
   NothingSelected,
   type NothingSelectedProps,
 } from './components/NothingSelected';
+export { Pagination, type PaginationProps } from './components/Pagination';
