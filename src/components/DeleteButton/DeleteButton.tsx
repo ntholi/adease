@@ -47,7 +47,11 @@ export function DeleteButton({
       await action(id);
       onSuccess?.();
     } catch (error) {
-      onError?.(error as Error);
+      if (error instanceof Error) {
+        onError?.(error);
+      } else {
+        onError?.(new Error('An unknown error occurred'));
+      }
     } finally {
       setLoading(false);
     }
