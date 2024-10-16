@@ -5,3 +5,7 @@ export {
   DeleteButton,
   type DeleteButtonProps,
 } from './components/DeleteButton';
+export {
+  NothingSelected,
+  type NothingSelectedProps,
+} from './components/NothingSelected';
