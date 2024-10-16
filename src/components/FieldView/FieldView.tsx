@@ -4,7 +4,7 @@ import React from 'react';
 
 export type FieldViewProps = {
   label: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 } & BoxProps;
 
 export function FieldView({ label, children, ...props }: FieldViewProps) {
@@ -22,7 +22,9 @@ export function FieldView({ label, children, ...props }: FieldViewProps) {
             )}
           </>
         ) : (
-          <Text size='sm'>Empty</Text>
+          <Text size='sm' fs={'italic'}>
+            Empty
+          </Text>
         )}
         <Text size='sm' c='dimmed'>
           {label}

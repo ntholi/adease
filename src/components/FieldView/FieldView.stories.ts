@@ -15,3 +15,9 @@ export const Default: Story = {
     children: 'Thabo Lebese',
   },
 };
+
+export const Empty: Story = {
+  args: {
+    label: 'Name',
+  },
+};
