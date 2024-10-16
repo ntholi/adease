@@ -1,4 +1,3 @@
-import '@mantine/core/styles.css';
 import { Box, BoxProps, Divider, MantineProvider, Text } from '@mantine/core';
 import React from 'react';
 
