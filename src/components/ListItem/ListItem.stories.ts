@@ -13,6 +13,8 @@ export const Default: Story = {
   args: {
     path: '/',
     id: 1,
-    label: 'Hello World',
+    label: 'Hello',
+    description: 'Hello World',
+    as: 'a',
   },
 };
