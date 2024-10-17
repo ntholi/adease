@@ -2,7 +2,7 @@ import 'dotenv/config';
 // import minimist from 'minimist';
 import fs from 'fs';
 import inquirer, { Question } from 'inquirer';
-import { pageTemplate } from './templates';
+import { createPageTemplate, pagePageTemplate } from './templates';
 
 // const args = minimist(process.argv.slice(2));
 
@@ -16,17 +16,18 @@ if (!resource) {
 
 console.log(`Creating resource: ${resource}`);
 const resourcePath = `${basePath}/${resource}`;
-fs.mkdirSync(resourcePath, { recursive: true });
 
 const homePage = async (resource: string) => {
+  fs.mkdirSync(resourcePath, { recursive: true });
   const pagePath = `${resourcePath}/page.tsx`;
-  fs.writeFileSync(pagePath, pageTemplate(resource));
+  fs.writeFileSync(pagePath, pagePageTemplate(resource));
   console.log(`File created: ${pagePath}`);
 };
 
 const createPage = async (resource: string) => {
+  fs.mkdirSync(`${resourcePath}/new`, { recursive: true });
   const pagePath = `${resourcePath}/new/page.tsx`;
-  fs.writeFileSync(pagePath, pageTemplate(resource));
+  fs.writeFileSync(pagePath, createPageTemplate(resource));
   console.log(`File created: ${pagePath}`);
 };
 
@@ -41,11 +42,11 @@ async function main() {
     {
       type: 'confirm',
       name: 'createPage',
-      message: 'Create a page?',
+      message: 'Create page?',
       default: true,
     },
   ];
-  const answers = await inquirer.prompt(questions);
+  const answers = await inquirer.prompt(questions as any);
   if (answers.homePage) {
     await homePage(resource);
   }
