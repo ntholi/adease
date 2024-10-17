@@ -31,7 +31,7 @@ const createPage = async (resource: string) => {
   console.log(`File created: ${pagePath}`);
 };
 
-async function main() {
+export async function main() {
   const questions: Question[] = [
     {
       type: 'confirm',
