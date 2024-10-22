@@ -1,22 +1,27 @@
 import { ZodObject, ZodTypeAny } from 'zod';
 import { useForm, zodResolver } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
-import { MantineProvider, Stack } from '@mantine/core';
-import React from 'react';
+import { MantineProvider, Stack, StackProps } from '@mantine/core';
+import React, { useState } from 'react';
+import FormHeader from './FormHeader';
 
 export type FormProps<T> = {
   children: React.ReactNode;
   action: (values: T) => Promise<void>;
   schema?: ZodObject<{ [K in any]: ZodTypeAny }>;
   initialValues?: T;
-};
+  title?: string;
+} & StackProps;
 
 export function Form<T extends Record<string, any>>({
   schema,
   initialValues,
   action,
+  title,
   children,
+  ...props
 }: FormProps<T>) {
+  const [pending, setPending] = useState(false);
   const form = useForm<T>({
     validate: schema && zodResolver(schema),
     initialValues,
@@ -24,6 +29,7 @@ export function Form<T extends Record<string, any>>({
 
   async function handleSubmit(values: T) {
     try {
+      setPending(true);
       await action(values);
     } catch (err) {
       console.error(err);
@@ -33,18 +39,20 @@ export function Form<T extends Record<string, any>>({
           err instanceof Error ? err.message : 'An unexpected error occurred',
         color: 'red',
       });
+    } finally {
+      setPending(false);
     }
   }
 
   return (
     <MantineProvider>
       <form onSubmit={form.onSubmit(handleSubmit)}>
-        <Stack py={50} px={70} pb={120} gap={'lg'}>
+        <FormHeader title={title} isLoading={pending} />
+        <Stack p={'xl'} {...props}>
           {React.Children.map(children, (child) =>
             recursivelyModifyChildren(child, form)
           )}
         </Stack>
-        <button type='submit'>Submit</button>
       </form>
     </MantineProvider>
   );

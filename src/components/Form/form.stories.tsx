@@ -1,7 +1,6 @@
-import React from 'react';
+import { Box, Grid, NumberInput, TextInput } from '@mantine/core';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Form } from './Form';
-import { Box, Grid, NumberInput, TextInput } from '@mantine/core';
 
 const meta: Meta<typeof Form> = {
   title: 'Form',
@@ -16,6 +15,7 @@ export const Default: Form = {
     action: async (values) => {
       console.log(values);
     },
+    title: 'Student',
     children: (
       <Box>
         <NumberInput label='Student Number' name='studentNumber' />
