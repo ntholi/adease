@@ -22,9 +22,7 @@ export type ListLayoutProps<T> = {
   renderItem: (item: T, path: string) => React.ReactNode;
   actionIcons?: React.ReactNode[];
   children: React.ReactNode;
-  currentPage: number;
-  currentSearch: string;
-  onNavigate: (path: string) => void;
+  navigate: (path: string) => void;
 };
 
 export function ListLayout<T>({
@@ -33,10 +31,12 @@ export function ListLayout<T>({
   renderItem,
   actionIcons,
   children,
-  currentPage,
-  currentSearch,
-  onNavigate,
+  navigate,
 }: ListLayoutProps<T>) {
+  const searchParams = new URLSearchParams(window.location.search);
+  const currentPage = Number(searchParams.get('page')) || 1;
+  const currentSearch = searchParams.get('search') || '';
+
   const [items, setItems] = useState<T[]>([]);
   const [pages, setPages] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -55,7 +55,7 @@ export function ListLayout<T>({
   }, [getItems, currentPage, currentSearch]);
 
   const handleNavigate = (newPath: string) => {
-    onNavigate(newPath);
+    navigate(newPath);
   };
 
   return (
