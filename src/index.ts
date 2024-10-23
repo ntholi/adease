@@ -17,6 +17,8 @@ export { Form, type FormProps } from './components/Form';
 export {
   DetailsView,
   DetailsViewHeader,
+  DetailsViewBody,
   type DetailsViewProps,
   type DetailsViewHeaderProps,
+  type DetailsViewBodyProps,
 } from './components/DetailsView';
