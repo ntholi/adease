@@ -14,3 +14,9 @@ export { SearchField, type SearchFieldProps } from './components/SearchField';
 export { ListItem, type ListItemProps } from './components/ListItem';
 export { ListLayout, type ListLayoutProps } from './components/ListLayout';
 export { Form, type FormProps } from './components/Form';
+export {
+  DetailsView,
+  DetailsViewHeader,
+  type DetailsViewProps,
+  type DetailsViewHeaderProps,
+} from './components/DetailsView';
