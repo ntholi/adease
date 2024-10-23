@@ -18,8 +18,5 @@ export const Default: Story = {
 export const WithParamsDisplay: Story = {
   args: {
     ...Default.args,
-    navigate(params) {
-      alert(params);
-    },
   },
 };
