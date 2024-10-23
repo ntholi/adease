@@ -1,14 +1,13 @@
-import { MantineProvider, NavLink, NavLinkProps } from '@mantine/core';
+import { NavLink, NavLinkProps } from '@mantine/core';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { ElementType } from 'react';
 
 export interface ListItemProps extends Omit<NavLinkProps, 'component'> {
   path: string;
   id: string | number;
-  as?: ElementType;
 }
 
-export function ListItem({ path, id, as, ...props }: ListItemProps) {
+export function ListItem({ path, id, ...props }: ListItemProps) {
   const [pathname, setPathname] = useState('');
   const [searchParams, setSearchParams] = useState('');
 
@@ -29,13 +28,11 @@ export function ListItem({ path, id, as, ...props }: ListItemProps) {
   }, []);
 
   return (
-    <MantineProvider>
-      <NavLink
-        href={`${path}/${id}${searchParams ? `?${searchParams}` : ''}`}
-        active={pathname === `${path}/${id}`}
-        component={as as any}
-        {...props}
-      />
-    </MantineProvider>
+    <NavLink
+      href={`${path}/${id}${searchParams ? `?${searchParams}` : ''}`}
+      active={pathname === `${path}/${id}`}
+      component={Link}
+      {...props}
+    />
   );
 }

@@ -1,11 +1,6 @@
 'use client';
-import {
-  ActionIcon,
-  ActionIconProps,
-  MantineProvider,
-  Text,
-} from '@mantine/core';
-import { modals, ModalsProvider } from '@mantine/modals';
+import { ActionIcon, ActionIconProps, Text } from '@mantine/core';
+import { modals } from '@mantine/modals';
 import { TrashIcon } from 'lucide-react';
 import { useState } from 'react';
 
@@ -57,17 +52,8 @@ export function DeleteButton({
     }
   }
   return (
-    <MantineProvider>
-      <ModalsProvider>
-        <ActionIcon
-          color='red'
-          loading={loading}
-          onClick={openModal}
-          {...props}
-        >
-          <TrashIcon size={'1rem'} />
-        </ActionIcon>
-      </ModalsProvider>
-    </MantineProvider>
+    <ActionIcon color='red' loading={loading} onClick={openModal} {...props}>
+      <TrashIcon size={'1rem'} />
+    </ActionIcon>
   );
 }

@@ -1,7 +1,7 @@
 import { ZodObject, ZodTypeAny } from 'zod';
 import { useForm, zodResolver } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
-import { MantineProvider, Stack, StackProps } from '@mantine/core';
+import { Stack, StackProps } from '@mantine/core';
 import React, { useState } from 'react';
 import FormHeader from './FormHeader';
 
@@ -45,23 +45,16 @@ export function Form<T extends Record<string, any>>({
   }
 
   return (
-    <MantineProvider>
-      <form onSubmit={form.onSubmit(handleSubmit)}>
-        <FormHeader title={title} isLoading={pending} />
-        <Stack p={'xl'} {...props}>
-          {React.Children.map(children, (child) =>
-            recursivelyModifyChildren(child, form)
-          )}
-        </Stack>
-      </form>
-    </MantineProvider>
+    <form onSubmit={form.onSubmit(handleSubmit)}>
+      <FormHeader title={title} isLoading={pending} />
+      <Stack p={'xl'} {...props}>
+        {React.Children.map(children, (child) => addFormProps(child, form))}
+      </Stack>
+    </form>
   );
 }
 
-function recursivelyModifyChildren(
-  child: React.ReactNode,
-  form: any
-): React.ReactNode {
+function addFormProps(child: React.ReactNode, form: any): React.ReactNode {
   if (!React.isValidElement(child)) return child;
 
   const childElement = child as React.ReactElement;
@@ -74,7 +67,7 @@ function recursivelyModifyChildren(
   if (childElement.props.children) {
     newProps.children = React.Children.map(
       childElement.props.children,
-      (grandChild) => recursivelyModifyChildren(grandChild, form)
+      (grandChild) => addFormProps(grandChild, form)
     );
   }
 

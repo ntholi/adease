@@ -1,6 +1,5 @@
 import {
   Box,
-  MantineProvider,
   Pagination as MPagination,
   PaginationProps as MPaginationProps,
 } from '@mantine/core';
@@ -30,16 +29,14 @@ export function Pagination({ total, navigate, ...props }: PaginationProps) {
   };
 
   return (
-    <MantineProvider>
-      <Box p={'sm'}>
-        <MPagination
-          size={'xs'}
-          total={total}
-          value={page}
-          onChange={handleChange}
-          {...props}
-        />
-      </Box>
-    </MantineProvider>
+    <Box p={'sm'}>
+      <MPagination
+        size={'xs'}
+        total={total}
+        value={page}
+        onChange={handleChange}
+        {...props}
+      />
+    </Box>
   );
 }
