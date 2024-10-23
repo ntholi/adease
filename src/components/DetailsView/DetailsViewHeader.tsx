@@ -1,3 +1,5 @@
+'use client';
+
 import {
   ActionIcon,
   Divider,
@@ -23,6 +25,7 @@ export function DetailsViewHeader({
   handleDelete,
 }: DetailsViewHeaderProps) {
   const pathname = usePathname();
+
   return (
     <MantineProvider>
       <Flex justify={'space-between'} align={'center'}>
@@ -33,11 +36,10 @@ export function DetailsViewHeader({
           {handleDelete && <DeleteButton action={handleDelete} id={id} />}
           <ActionIcon
             component={Link}
-            size={'lg'}
             href={`${pathname}/edit`}
             variant='default'
           >
-            <EditIcon size={'1.1rem'} />
+            <EditIcon size={'1rem'} />
           </ActionIcon>
         </Group>
       </Flex>
