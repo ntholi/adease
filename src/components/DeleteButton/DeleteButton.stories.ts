@@ -11,7 +11,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    action: async () => {
+    handleDelete: async () => {
       await new Promise((resolve) => setTimeout(resolve, 1000));
       return Promise.resolve();
     },
@@ -38,7 +38,7 @@ export const WithSuccess: Story = {
 export const WithError: Story = {
   args: {
     ...Default.args,
-    action: async () => {
+    handleDelete: async () => {
       await new Promise((resolve) => setTimeout(resolve, 1000));
       return Promise.reject(new Error('Something went wrong'));
     },
