@@ -11,7 +11,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    path: '/',
     id: 1,
     label: 'Hello',
     description: 'Hello World',

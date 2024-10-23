@@ -1,37 +1,19 @@
 import { MantineProvider, NavLink, NavLinkProps } from '@mantine/core';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 export interface ListItemProps extends Omit<NavLinkProps, 'component'> {
-  path: string;
   id: string | number;
 }
 
-export function ListItem({ path, id, ...props }: ListItemProps) {
-  const [pathname, setPathname] = useState('');
-  const [searchParams, setSearchParams] = useState('');
-
-  useEffect(() => {
-    setPathname(window.location.pathname);
-    setSearchParams(window.location.search.slice(1));
-
-    const handleUrlChange = () => {
-      setPathname(window.location.pathname);
-      setSearchParams(window.location.search.slice(1));
-    };
-
-    window.addEventListener('popstate', handleUrlChange);
-
-    return () => {
-      window.removeEventListener('popstate', handleUrlChange);
-    };
-  }, []);
-
+export function ListItem({ id, ...props }: ListItemProps) {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   return (
     <MantineProvider>
       <NavLink
-        href={`${path}/${id}${searchParams ? `?${searchParams}` : ''}`}
-        active={pathname === `${path}/${id}`}
+        href={`${pathname}/${id}?${searchParams}`}
+        active={pathname === `${pathname}/${id}`}
         component={Link}
         {...props}
       />

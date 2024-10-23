@@ -12,39 +12,34 @@ import {
 } from '@mantine/core';
 import { SearchField } from '../SearchField';
 import { Pagination } from '../Pagination';
+import { parseAsInteger, useQueryState } from 'nuqs';
 
 export type ListLayoutProps<T> = {
   getItems: (
     page: number,
     search: string
   ) => Promise<{ items: T[]; pages: number }>;
-  path: string;
-  renderItem: (item: T, path: string) => React.ReactNode;
+  renderItem: (item: T) => React.ReactNode;
   actionIcons?: React.ReactNode[];
   children: React.ReactNode;
-  navigate: (path: string) => void;
 };
 
 export function ListLayout<T>({
   getItems,
-  path,
   renderItem,
   actionIcons,
   children,
-  navigate,
 }: ListLayoutProps<T>) {
-  const searchParams = new URLSearchParams(window.location.search);
-  const currentPage = Number(searchParams.get('page')) || 1;
-  const currentSearch = searchParams.get('search') || '';
-
   const [items, setItems] = useState<T[]>([]);
   const [pages, setPages] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [page] = useQueryState('page', parseAsInteger);
+  const [searchKey] = useQueryState('search');
 
   useEffect(() => {
     const fetchItems = async () => {
       setLoading(true);
-      const result = await getItems(currentPage, currentSearch).finally(() => {
+      const result = await getItems(page || 0, searchKey || '').finally(() => {
         setLoading(false);
       });
       setItems(result.items);
@@ -52,11 +47,7 @@ export function ListLayout<T>({
     };
 
     fetchItems();
-  }, [getItems, currentPage, currentSearch]);
-
-  const handleNavigate = (newPath: string) => {
-    navigate(newPath);
-  };
+  }, [getItems, page, searchKey]);
 
   return (
     <MantineProvider>
@@ -71,10 +62,7 @@ export function ListLayout<T>({
                 gap={'xs'}
               >
                 <Group style={{ width: '100%', flex: 1 }}>
-                  <SearchField
-                    navigate={handleNavigate}
-                    style={{ width: '100%' }}
-                  />
+                  <SearchField style={{ width: '100%' }} />
                 </Group>
                 {actionIcons?.map((component, index) => (
                   <React.Fragment key={index}>{component}</React.Fragment>
@@ -88,7 +76,7 @@ export function ListLayout<T>({
                   <>
                     {items.map((item: T, index: number) => (
                       <React.Fragment key={index}>
-                        {renderItem(item, path)}
+                        {renderItem(item)}
                       </React.Fragment>
                     ))}
                   </>
@@ -96,7 +84,7 @@ export function ListLayout<T>({
               </ScrollArea>
 
               <Divider />
-              <Pagination total={pages} navigate={handleNavigate} />
+              <Pagination total={pages} />
             </Flex>
           </Paper>
         </GridCol>

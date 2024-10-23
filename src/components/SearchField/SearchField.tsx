@@ -6,25 +6,15 @@ import {
   TextInputProps,
 } from '@mantine/core';
 import { Search } from 'lucide-react';
-import React from 'react';
+import { useQueryState } from 'nuqs';
 
-export interface SearchFieldProps extends TextInputProps {
-  navigate: (params: string) => void;
-}
-
-export function SearchField({ navigate, ...props }: SearchFieldProps) {
-  const [value, setValue] = React.useState('');
-
-  function handleSearch(value: string) {
-    setValue(value);
-    navigate(`search=${value}`);
-  }
+export function SearchField(props: TextInputProps) {
+  const [value, setValue] = useQueryState('search');
 
   const leftSection = value ? (
     <CloseButton
       onClick={() => {
-        setValue('');
-        navigate('');
+        setValue(null);
       }}
     />
   ) : (
@@ -35,9 +25,9 @@ export function SearchField({ navigate, ...props }: SearchFieldProps) {
     <MantineProvider>
       <TextInput
         placeholder='Search'
-        value={value}
+        value={value || ''}
         onChange={(event) => {
-          handleSearch(event.target.value);
+          setValue(event.target.value);
         }}
         rightSection={leftSection}
         {...props}
