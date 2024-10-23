@@ -15,6 +15,5 @@ export const Default: Story = {
     id: 1,
     label: 'Hello',
     description: 'Hello World',
-    as: 'a',
   },
 };
