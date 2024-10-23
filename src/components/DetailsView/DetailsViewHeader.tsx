@@ -1,4 +1,11 @@
-import { ActionIcon, Divider, Flex, Group, Title } from '@mantine/core';
+import {
+  ActionIcon,
+  Divider,
+  Flex,
+  Group,
+  MantineProvider,
+  Title,
+} from '@mantine/core';
 import { EditIcon } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -17,7 +24,7 @@ export function DetailsViewHeader({
 }: DetailsViewHeaderProps) {
   const pathname = usePathname();
   return (
-    <>
+    <MantineProvider>
       <Flex justify={'space-between'} align={'center'}>
         <Title order={3} fw={100}>
           {title}
@@ -35,6 +42,6 @@ export function DetailsViewHeader({
         </Group>
       </Flex>
       <Divider my={15} />
-    </>
+    </MantineProvider>
   );
 }

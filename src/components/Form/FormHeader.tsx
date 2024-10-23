@@ -5,6 +5,7 @@ import {
   Divider,
   Flex,
   Group,
+  MantineProvider,
   Title,
 } from '@mantine/core';
 import { SaveIcon } from 'lucide-react';
@@ -17,7 +18,7 @@ type Props = {
 
 export default function FormHeader({ title, isLoading, onClose }: Props) {
   return (
-    <>
+    <MantineProvider>
       <Flex justify={title ? 'space-between' : 'end'} align={'center'}>
         {title && (
           <Title order={3} fw={100}>
@@ -36,6 +37,6 @@ export default function FormHeader({ title, isLoading, onClose }: Props) {
         </Group>
       </Flex>
       <Divider my={15} />
-    </>
+    </MantineProvider>
   );
 }

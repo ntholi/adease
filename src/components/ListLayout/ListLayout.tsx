@@ -5,6 +5,7 @@ import {
   Grid,
   GridCol,
   Group,
+  MantineProvider,
   Paper,
   ScrollArea,
   Skeleton,
@@ -58,50 +59,57 @@ export function ListLayout<T>({
   };
 
   return (
-    <Grid columns={14} gutter={'xl'}>
-      <GridCol span={4} pr={7}>
-        <Paper withBorder h={'88vh'}>
-          <Flex direction='column' h='100%'>
-            <Flex p={'md'} justify='space-between' align={'center'} gap={'xs'}>
-              <Group style={{ width: '100%', flex: 1 }}>
-                <SearchField
-                  navigate={handleNavigate}
-                  style={{ width: '100%' }}
-                />
-              </Group>
-              {actionIcons?.map((component, index) => (
-                <React.Fragment key={index}>{component}</React.Fragment>
-              ))}
+    <MantineProvider>
+      <Grid columns={14} gutter={'xl'}>
+        <GridCol span={4} pr={7}>
+          <Paper withBorder h={'88vh'}>
+            <Flex direction='column' h='100%'>
+              <Flex
+                p={'md'}
+                justify='space-between'
+                align={'center'}
+                gap={'xs'}
+              >
+                <Group style={{ width: '100%', flex: 1 }}>
+                  <SearchField
+                    navigate={handleNavigate}
+                    style={{ width: '100%' }}
+                  />
+                </Group>
+                {actionIcons?.map((component, index) => (
+                  <React.Fragment key={index}>{component}</React.Fragment>
+                ))}
+              </Flex>
+              <Divider />
+              <ScrollArea type='always' style={{ flex: 1 }} p={'sm'}>
+                {loading ? (
+                  <Loader />
+                ) : (
+                  <>
+                    {items.map((item: T, index: number) => (
+                      <React.Fragment key={index}>
+                        {renderItem(item, path)}
+                      </React.Fragment>
+                    ))}
+                  </>
+                )}
+              </ScrollArea>
+
+              <Divider />
+              <Pagination total={pages} navigate={handleNavigate} />
             </Flex>
-            <Divider />
-            <ScrollArea type='always' style={{ flex: 1 }} p={'sm'}>
-              {loading ? (
-                <Loader />
-              ) : (
-                <>
-                  {items.map((item: T, index: number) => (
-                    <React.Fragment key={index}>
-                      {renderItem(item, path)}
-                    </React.Fragment>
-                  ))}
-                </>
-              )}
+          </Paper>
+        </GridCol>
+
+        <GridCol span={10}>
+          <Paper withBorder>
+            <ScrollArea h='88vh' type='always'>
+              {children}
             </ScrollArea>
-
-            <Divider />
-            <Pagination total={pages} navigate={handleNavigate} />
-          </Flex>
-        </Paper>
-      </GridCol>
-
-      <GridCol span={10}>
-        <Paper withBorder>
-          <ScrollArea h='88vh' type='always'>
-            {children}
-          </ScrollArea>
-        </Paper>
-      </GridCol>
-    </Grid>
+          </Paper>
+        </GridCol>
+      </Grid>
+    </MantineProvider>
   );
 }
 
