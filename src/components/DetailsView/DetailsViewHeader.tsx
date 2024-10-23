@@ -13,17 +13,17 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { DeleteButton } from '../DeleteButton';
 
-export interface DetailsViewHeaderProps {
+export interface DetailsViewHeaderProps<T> {
   title: string;
-  id: string | number;
-  handleDelete?: (id: string | number) => Promise<void>;
+  id: T;
+  handleDelete?: (id: T) => Promise<void>;
 }
 
-export function DetailsViewHeader({
+export function DetailsViewHeader<T>({
   title,
   id,
   handleDelete,
-}: DetailsViewHeaderProps) {
+}: DetailsViewHeaderProps<T>) {
   const pathname = usePathname();
 
   return (
@@ -33,7 +33,7 @@ export function DetailsViewHeader({
           {title}
         </Title>
         <Group>
-          {handleDelete && <DeleteButton action={handleDelete} id={id} />}
+          {handleDelete && <DeleteButton handleDelete={handleDelete} id={id} />}
           <ActionIcon
             component={Link}
             href={`${pathname}/edit`}

@@ -9,22 +9,22 @@ import { modals } from '@mantine/modals';
 import { TrashIcon } from 'lucide-react';
 import { useState } from 'react';
 
-export interface DeleteButtonProps extends ActionIconProps {
-  action: (id: string | number) => Promise<void>;
-  id: number | string;
+export interface DeleteButtonProps<T> extends ActionIconProps {
+  handleDelete: (id: T) => Promise<void>;
+  id: T;
   message?: string;
   onSuccess?: () => void;
   onError?: (error: Error) => void;
 }
 
-export function DeleteButton({
-  action,
+export function DeleteButton<T>({
+  handleDelete,
   id,
   message,
   onSuccess,
   onError,
   ...props
-}: DeleteButtonProps) {
+}: DeleteButtonProps<T>) {
   const [loading, setLoading] = useState(false);
 
   const openModal = () =>
@@ -38,13 +38,13 @@ export function DeleteButton({
       labels: { confirm: 'Delete', cancel: 'Cancel' },
       confirmProps: { color: 'red' },
       onCancel: () => console.log('Cancel'),
-      onConfirm: () => handleDelete(),
+      onConfirm: () => onDelete(),
     });
 
-  async function handleDelete() {
+  async function onDelete() {
     setLoading(true);
     try {
-      await action(id);
+      await handleDelete(id);
       onSuccess?.();
     } catch (error) {
       if (error instanceof Error) {
