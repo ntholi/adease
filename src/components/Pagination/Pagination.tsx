@@ -6,7 +6,6 @@ import {
   PaginationProps as MPaginationProps,
 } from '@mantine/core';
 import { parseAsInteger, useQueryState } from 'nuqs';
-import { NuqsAdapter } from 'nuqs/adapters/next';
 
 export interface PaginationProps extends MPaginationProps {
   total: number;
@@ -17,17 +16,15 @@ export function Pagination({ total, ...props }: PaginationProps) {
 
   return (
     <MantineProvider>
-      <NuqsAdapter>
-        <Box p={'sm'}>
-          <MPagination
-            size={'xs'}
-            total={total}
-            value={page || undefined}
-            onChange={(newPage) => setPage(newPage)}
-            {...props}
-          />
-        </Box>
-      </NuqsAdapter>
+      <Box p={'sm'}>
+        <MPagination
+          size={'xs'}
+          total={total}
+          value={page || undefined}
+          onChange={(newPage) => setPage(newPage)}
+          {...props}
+        />
+      </Box>
     </MantineProvider>
   );
 }

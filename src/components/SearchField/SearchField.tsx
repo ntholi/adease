@@ -8,7 +8,6 @@ import {
 } from '@mantine/core';
 import { Search } from 'lucide-react';
 import { useQueryState } from 'nuqs';
-import { NuqsAdapter } from 'nuqs/adapters/next';
 
 export function SearchField(props: TextInputProps) {
   const [value, setValue] = useQueryState('search');
@@ -25,17 +24,15 @@ export function SearchField(props: TextInputProps) {
 
   return (
     <MantineProvider>
-      <NuqsAdapter>
-        <TextInput
-          placeholder='Search'
-          value={value || ''}
-          onChange={(event) => {
-            setValue(event.target.value);
-          }}
-          rightSection={leftSection}
-          {...props}
-        />
-      </NuqsAdapter>
+      <TextInput
+        placeholder='Search'
+        value={value || ''}
+        onChange={(event) => {
+          setValue(event.target.value);
+        }}
+        rightSection={leftSection}
+        {...props}
+      />
     </MantineProvider>
   );
 }
