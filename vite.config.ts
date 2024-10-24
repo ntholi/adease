@@ -23,13 +23,21 @@ export default defineConfig({
       fileName: 'adease',
     },
     rollupOptions: {
-      external: ['react', 'react-dom', 'react/jsx-runtime'],
+      external: [
+        'react',
+        'react-dom',
+        'react/jsx-runtime',
+        'next',
+        'next/navigation',
+      ],
       plugins: [preserveDirectives()],
       output: {
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM',
           'react/jsx-runtime': 'ReactJSXRuntime',
+          next: 'Next',
+          'next/navigation': 'NextNavigation',
         },
       },
     },
