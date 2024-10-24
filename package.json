@@ -6,14 +6,19 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/adease.umd.cjs",
-  "module": "./dist/adease.js",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/adease.js",
-      "require": "./dist/adease.umd.cjs",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
       "types": "./dist/index.d.ts"
+    },
+    "./provider": {
+      "import": "./dist/provider.js",
+      "require": "./dist/provider.cjs",
+      "types": "./dist/provider.d.ts"
     }
   },
   "scripts": {
