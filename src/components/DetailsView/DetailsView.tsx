@@ -1,4 +1,4 @@
-import { Box, MantineProvider, type BoxProps } from '@mantine/core';
+import { Box, type BoxProps } from '@mantine/core';
 
 export interface DetailsViewProps extends BoxProps {
   children: React.ReactNode;
@@ -6,10 +6,8 @@ export interface DetailsViewProps extends BoxProps {
 
 export function DetailsView({ children, ...props }: DetailsViewProps) {
   return (
-    <MantineProvider>
-      <Box p={'xl'} {...props}>
-        {children}
-      </Box>
-    </MantineProvider>
+    <Box p={'xl'} {...props}>
+      {children}
+    </Box>
   );
 }

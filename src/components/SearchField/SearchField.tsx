@@ -1,11 +1,6 @@
 'use client';
 
-import {
-  CloseButton,
-  MantineProvider,
-  TextInput,
-  TextInputProps,
-} from '@mantine/core';
+import { CloseButton, TextInput, TextInputProps } from '@mantine/core';
 import { Search } from 'lucide-react';
 import { useQueryState } from 'nuqs';
 
@@ -23,16 +18,14 @@ export function SearchField(props: TextInputProps) {
   );
 
   return (
-    <MantineProvider>
-      <TextInput
-        placeholder='Search'
-        value={value || ''}
-        onChange={(event) => {
-          setValue(event.target.value);
-        }}
-        rightSection={leftSection}
-        {...props}
-      />
-    </MantineProvider>
+    <TextInput
+      placeholder='Search'
+      value={value || ''}
+      onChange={(event) => {
+        setValue(event.target.value);
+      }}
+      rightSection={leftSection}
+      {...props}
+    />
   );
 }

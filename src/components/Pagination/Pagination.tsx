@@ -1,7 +1,6 @@
 'use client';
 import {
   Box,
-  MantineProvider,
   Pagination as MPagination,
   PaginationProps as MPaginationProps,
 } from '@mantine/core';
@@ -15,16 +14,14 @@ export function Pagination({ total, ...props }: PaginationProps) {
   const [page, setPage] = useQueryState('page', parseAsInteger);
 
   return (
-    <MantineProvider>
-      <Box p={'sm'}>
-        <MPagination
-          size={'xs'}
-          total={total}
-          value={page || undefined}
-          onChange={(newPage) => setPage(newPage)}
-          {...props}
-        />
-      </Box>
-    </MantineProvider>
+    <Box p={'sm'}>
+      <MPagination
+        size={'xs'}
+        total={total}
+        value={page || undefined}
+        onChange={(newPage) => setPage(newPage)}
+        {...props}
+      />
+    </Box>
   );
 }
