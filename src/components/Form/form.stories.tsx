@@ -14,6 +14,7 @@ export const Default: Form = {
   args: {
     action: async (values) => {
       console.log(values);
+      return values;
     },
     title: 'Student',
     children: (

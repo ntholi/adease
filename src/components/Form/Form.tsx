@@ -7,10 +7,12 @@ import FormHeader from './FormHeader';
 
 export type FormProps<T> = {
   children: React.ReactNode;
-  action: (values: T) => Promise<void>;
+  action: (values: T) => Promise<T>;
   schema?: ZodObject<{ [K in any]: ZodTypeAny }>;
   initialValues?: T;
   title?: string;
+  onSuccess?: (values: T) => void;
+  onError?: (error: Error) => void;
 } & StackProps;
 
 export function Form<T extends Record<string, any>>({
@@ -19,6 +21,8 @@ export function Form<T extends Record<string, any>>({
   action,
   title,
   children,
+  onSuccess,
+  onError,
   ...props
 }: FormProps<T>) {
   const [pending, setPending] = useState(false);
@@ -30,7 +34,8 @@ export function Form<T extends Record<string, any>>({
   async function handleSubmit(values: T) {
     try {
       setPending(true);
-      await action(values);
+      const result = await action(values);
+      onSuccess?.(result);
     } catch (err) {
       console.error(err);
       notifications.show({
@@ -39,6 +44,7 @@ export function Form<T extends Record<string, any>>({
           err instanceof Error ? err.message : 'An unexpected error occurred',
         color: 'red',
       });
+      onError?.(err as Error);
     } finally {
       setPending(false);
     }
