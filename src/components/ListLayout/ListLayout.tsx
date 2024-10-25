@@ -16,9 +16,11 @@ import { Pagination } from '../Pagination';
 import { parseAsInteger, useQueryState } from 'nuqs';
 
 export type ListLayoutProps<T> = {
+  searchProperties?: (keyof T)[];
   getItems: (
     page: number,
-    search: string
+    search: string,
+    searchProperties: (keyof T)[]
   ) => Promise<{ items: T[]; pages: number }>;
   renderItem: (item: T) => React.ReactNode;
   actionIcons?: React.ReactNode[];
@@ -30,6 +32,7 @@ export function ListLayout<T>({
   renderItem,
   actionIcons,
   children,
+  searchProperties = [],
 }: ListLayoutProps<T>) {
   const [items, setItems] = useState<T[]>([]);
   const [pages, setPages] = useState(0);
@@ -40,7 +43,11 @@ export function ListLayout<T>({
   useEffect(() => {
     const fetchItems = async () => {
       setLoading(true);
-      const result = await getItems(page || 0, searchKey || '').finally(() => {
+      const result = await getItems(
+        page || 0,
+        searchKey || '',
+        searchProperties || []
+      ).finally(() => {
         setLoading(false);
       });
       setItems(result.items);
@@ -48,7 +55,7 @@ export function ListLayout<T>({
     };
 
     fetchItems();
-  }, [getItems, page, searchKey]);
+  }, [getItems, page, searchKey, searchProperties]);
 
   return (
     <Grid columns={14} gutter={'xl'}>
