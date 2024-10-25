@@ -9,7 +9,7 @@ export type FormProps<T> = {
   children: React.ReactNode;
   action: (values: T) => Promise<T>;
   schema?: ZodObject<{ [K in any]: ZodTypeAny }>;
-  initialValues?: T;
+  defaultValues?: T;
   title?: string;
   onSuccess?: (values: T) => void;
   onError?: (error: Error) => void;
@@ -17,7 +17,7 @@ export type FormProps<T> = {
 
 export function Form<T extends Record<string, any>>({
   schema,
-  initialValues,
+  defaultValues,
   action,
   title,
   children,
@@ -28,7 +28,7 @@ export function Form<T extends Record<string, any>>({
   const [pending, setPending] = useState(false);
   const form = useForm<T>({
     validate: schema && zodResolver(schema),
-    initialValues,
+    initialValues: defaultValues,
   });
 
   async function handleSubmit(values: T) {
