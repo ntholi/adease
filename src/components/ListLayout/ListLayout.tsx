@@ -44,7 +44,7 @@ export function ListLayout<T>({
     const fetchItems = async () => {
       setLoading(true);
       const result = await getItems(
-        page || 0,
+        page || 1,
         searchKey || '',
         searchProperties || []
       ).finally(() => {
