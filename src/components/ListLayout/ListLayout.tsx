@@ -55,7 +55,7 @@ export function ListLayout<T>({
     };
 
     fetchItems();
-  }, [getItems, page, searchKey, searchProperties]);
+  }, [getItems, page, searchKey]);
 
   return (
     <Grid columns={14} gutter={'xl'}>
