@@ -23,3 +23,4 @@ export {
   type DetailsViewHeaderProps,
   type DetailsViewBodyProps,
 } from './components/DetailsView';
+export { Shell } from './components/Shell';
